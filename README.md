@@ -1,8 +1,15 @@
 Para realizar este TP usé el dataset de películas y puntuaciones de MovieLens.
+
 Etapa 1: Creé mi cuenta de Databricks y los notebooks conectados a compute serverless. Ejecuté algunos comandos de prueba simples con Python y SQL.
+
 Etapa 2: Subí los dos archivos CSV a un Volume de Databricks y los leí con Spark. Al analizarlos observé 9.742 películas y 100.836 puntuaciones realizadas por 610 usuarios. El promedio general es de 3,5 en las puntuaciones; además, creé vistas temporales para hacer consultas con Spark SQL.
+
 Etapa 3: Comencé a revisar los datos, identificar valores nulos y duplicados, pero no encontré ninguno. Extraje el año de cada película por sus títulos y creé las columnas de fecha, anio_rating y valoracion. Clasifiqué en base a la columna valoracion las altas de 4 o más, medias 3 o más, y bajas de 3 o menos. Descarté 13 películas que no tenían año en el título, lo que eliminó 18 puntuaciones. Luego uní las dos tablas con join y calculé el promedio y la cantidad de puntuaciones de cada película; me quedé con las que tenían al menos 50 puntuaciones para que el promedio fuera fiable.
+
 Etapa 4: Almacené los datos transformados en dos tablas Delta: peliculas_ratings y top_peliculas. Las validé cuando las ejecuté en otro notebook y comprobé los 100.818 datos, sin nulos ni duplicados.
+
 Etapa 5: Con los datos listos realicé 3 gráficos: el primero con las 10 películas más puntuadas, donde el puesto 1 es de The Shawshank Redemption, que lidera con 4,43. El segundo gráfico muestra la cantidad de puntuaciones por año, donde visualicé el pico en el año 2000 con más de 10.000 puntuaciones, y el más bajo en 1998. El tercer gráfico es la distribución de valoraciones, donde predominan las altas, seguidas por las medias y las bajas.
+
 Dificultades: Tuve dos problemas. El primero fue un error de ruta (SCHEMA_NOT_FOUND) porque estaba usando un nombre de schema que no existía en mi cuenta. Lo resolví copiando la ruta real del archivo desde Catalog. El segundo fue un error al convertir el año a número porque algunos títulos no tenían año. Lo solucioné haciendo que esos casos queden como nulos y descartándolos después.
+
 Conclusión: El proceso me permitió recorrer un flujo completo de datos: cargarlos, limpiarlos, transformarlos, guardarlos en un formato optimizado y analizarlos con gráficos.
